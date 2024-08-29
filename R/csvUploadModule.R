@@ -45,7 +45,7 @@ csvUploadServer <- function(id, vars_title = "Available Variables") {
       data <- uploaded_data()
       df <- data.frame(Variable = names(data), Type = sapply(data, class))
       DT::datatable(df, editable = 'cell', options = list(pageLength = 5),
-                rownames = FALSE)
+                    rownames = FALSE)
     })
 
     shiny::observeEvent(input$variables_table_cell_edit, {
