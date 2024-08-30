@@ -1,13 +1,19 @@
 # Module UI function
 postgresUI <- function(id) {
   ns <- shiny::NS(id)
-  shiny::tagList(
-    DT::DTOutput(ns("data_table"))
+  list(
+    submit = shiny::tagList(
+      shiny::actionButton(ns("submit"), "Submit Data")
+    ),
+    table = shiny::tagList(
+      DT::DTOutput(ns("data_table"))
+    )
   )
 }
 
+
 # Module server function
-postgresServer <- function(id, dbname, datatable, host, port, user, password) {
+postgresServer <- function(id, dbname, datatable, host, port, user, password, data) {
   shiny::moduleServer(id, function(input, output, session) {
 
     # Function to create database connection
@@ -31,7 +37,11 @@ postgresServer <- function(id, dbname, datatable, host, port, user, password) {
     # Function to save data
     saveData <- function(data) {
       pool <- connect_db()
-      on.exit(pool::poolClose(pool))
+
+      # Close pool on stop
+      shiny::onStop(function() {
+        pool::poolClose(pool)
+      })
 
       data <- sanitize_colnames(data)
       data[is.na(data)] <- NaN
@@ -67,7 +77,11 @@ postgresServer <- function(id, dbname, datatable, host, port, user, password) {
     # Function to load data
     loadData <- function() {
       pool <- connect_db()
-      on.exit(pool::poolClose(pool))
+
+      # Close pool on stop
+      shiny::onStop(function() {
+        pool::poolClose(pool)
+      })
 
       query <- sprintf("SELECT * FROM %s", datatable)
       pool::dbGetQuery(pool, query)
@@ -76,11 +90,66 @@ postgresServer <- function(id, dbname, datatable, host, port, user, password) {
     # Reactive value to store the current data
     current_data <- shiny::reactiveVal(NULL)
 
+    # Reactive value to store the data to be submitted
+    data_to_submit <- shiny::reactiveVal(NULL)
+
     # Load data when the module initializes
     shiny::observe({
       data <- loadData()
       current_data(data)
     })
+
+    # Handle submit button click
+    shiny::observeEvent(input$submit, {
+      # Check if there's data to submit
+      if (is.null(data_to_submit()) || nrow(data_to_submit()) == 0) {
+        shiny::showModal(shiny::modalDialog(
+          title = "Error",
+          "No data to submit. Please ensure data is available before submitting.",
+          easyClose = TRUE,
+          footer = NULL
+        ))
+        return()
+      }
+
+      # Check if the data to be submitted is different from the current data
+      if (!is.null(current_data()) && identical(data_to_submit(), current_data())) {
+        shiny::showModal(shiny::modalDialog(
+          title = "Warning",
+          "This data has already been submitted. Do you want to submit it again?",
+          footer = shiny::tagList(
+            shiny::modalButton("Cancel"),
+            shiny::actionButton(session$ns("confirm_submit"), "Submit Anyway")
+          )
+        ))
+      } else {
+        # If data is different, submit immediately
+        submit_data()
+      }
+    })
+
+    # Handle confirmation of submission for duplicate data
+    shiny::observeEvent(input$confirm_submit, {
+      submit_data()
+      shiny::removeModal()
+    })
+
+    # Function to submit data
+    submit_data <- function() {
+      tryCatch({
+        saveData(data_to_submit())
+        shiny::showNotification("Data saved successfully", type = "message")
+
+        # Reload the data to update the table
+        new_data <- loadData()
+        current_data(new_data)
+
+        # Clear the data to be submitted
+        data_to_submit(NULL)
+      }, error = function(e) {
+        shiny::showNotification(paste("Error saving data:", e$message), type = "error")
+      })
+    }
 
     # Render data table
     output$data_table <- DT::renderDT({
@@ -91,7 +160,8 @@ postgresServer <- function(id, dbname, datatable, host, port, user, password) {
     list(
       saveData = saveData,
       loadData = loadData,
-      current_data = current_data
+      current_data = current_data,
+      data_to_submit = data_to_submit
     )
   })
 }
