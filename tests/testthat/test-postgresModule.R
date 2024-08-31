@@ -1,16 +1,19 @@
-# test_that("postgresModule works with single line of input", {
-#
-#   # Build shiny app that submits rows of the cars dataset to database
-#   carsTestApp <- function(){
+# test_that("Cars Random Sampling App works", {
+#   # Build shiny app that randomly samples rows from the cars dataset and submits to database
+#   carsRandomSamplingApp <- function() {
 #     ui <- shiny::fluidPage(
-#       shiny::titlePanel("PostgreSQL Data Management"),
+#       shiny::titlePanel("Random Sampling from Cars Dataset"),
 #       shiny::sidebarLayout(
 #         shiny::sidebarPanel(
-#           shiny::actionButton("next_row", "Next Row"),
-#           shiny::textOutput("rowCounter"),
+#           shiny::numericInput("sample_size", "Number of rows to sample:",
+#                               value = 5, min = 1, max = nrow(cars)),
+#           shiny::actionButton("sample_button", "Sample Data"),
 #           postgresUI("postgres")$submit
 #         ),
 #         shiny::mainPanel(
+#           shiny::h4("Sampled Data:"),
+#           shiny::tableOutput("sampled_data"),
+#           shiny::h4("Database Content:"),
 #           postgresUI("postgres")$table
 #         )
 #       )
@@ -27,15 +30,6 @@
 #         password = Sys.getenv("PASSWORD")
 #       )
 #
-#       # Create a reactive value to store the counter
-#       counter <- shiny::reactiveVal(0)
-#
-#       # Reactive expression for the current row of data
-#       current_row <- shiny::reactive({
-#         row_num <- (counter() - 1) %% nrow(cars) + 1
-#         cars[row_num, , drop = FALSE]
-#       })
-#
 #       # Initialize the postgres module
 #       postgres_module <- postgresServer("postgres",
 #                                         dbname = db_config$dbname,
@@ -44,91 +38,36 @@
 #                                         port = db_config$port,
 #                                         user = db_config$user,
 #                                         password = db_config$password,
-#                                         data = current_row)
+#                                         data = NULL)
 #
-#       # When the Next Row button is clicked, increment the counter
-#       shiny::observeEvent(input$next_row, {
-#         counter(counter() + 1)
-#         # Update the data_to_submit in the module
-#         postgres_module$data_to_submit(current_row())
+#       # Reactive value to store the sampled data
+#       sampled_data <- shiny::reactiveVal(NULL)
+#
+#       # When the Sample Data button is clicked, randomly sample the cars dataset
+#       shiny::observeEvent(input$sample_button, {
+#         sample_size <- min(input$sample_size, nrow(cars))
+#         sampled <- cars[sample(nrow(cars), sample_size, replace = TRUE), , drop = FALSE]
+#         sampled_data(sampled)
+#         postgres_module$data_to_submit(sampled)
 #       })
 #
-#       # Display the current row number
-#       output$rowCounter <- shiny::renderText({
-#         if(counter() == 0) {
-#           "No rows selected yet"
-#         } else {
-#           sprintf("Current row: %d", ((counter() - 1) %% nrow(cars) + 1))
-#         }
+#       # Display the sampled data
+#       output$sampled_data <- shiny::renderTable({
+#         sampled_data()
 #       })
 #
 #       # Clear data_to_submit after successful submission
 #       shiny::observeEvent(postgres_module$current_data(), {
 #         postgres_module$data_to_submit(NULL)
+#         sampled_data(NULL)
 #       })
 #     }
 #
 #     shiny::shinyApp(ui, server)
 #   }
 #
-#   sap <- carsTestApp()
+#   sap <- carsRandomSamplingApp()
 #
 #   expect_s3_class(sap, "shiny.appobj")
-# })
 #
-# test_that("postgresModule works with multiple lines of input", {
-#
-#   # Build shiny app that submits the cars dataset to database
-#   carsTestApp <- function(){
-#     ui <- shiny::fluidPage(
-#       shiny::titlePanel("PostgreSQL Data Management"),
-#       shiny::sidebarLayout(
-#         shiny::sidebarPanel(
-#           shiny::actionButton("load_data", "Load Cars Data"),
-#           postgresUI("postgres")$submit
-#         ),
-#         shiny::mainPanel(
-#           postgresUI("postgres")$table
-#         )
-#       )
-#     )
-#
-#     server <- function(input, output, session) {
-#       # Get database connection details from environment variables
-#       db_config <- list(
-#         dbname = Sys.getenv("DBNAME"),
-#         datatable = Sys.getenv("DATATABLE"),
-#         host = Sys.getenv("HOST"),
-#         port = as.integer(Sys.getenv("PORT")),
-#         user = Sys.getenv("USER"),
-#         password = Sys.getenv("PASSWORD")
-#       )
-#
-#       # When the Load Data button is clicked, load the cars dataset
-#       shiny::observeEvent(input$load_data, {
-#         postgres_module$data_to_submit(cars)
-#       })
-#
-#       # Initialize the postgres module
-#       postgres_module <- postgresServer("postgres",
-#                                         dbname = db_config$dbname,
-#                                         datatable = db_config$datatable,
-#                                         host = db_config$host,
-#                                         port = db_config$port,
-#                                         user = db_config$user,
-#                                         password = db_config$password,
-#                                         data = data_to_submit)
-#
-#       # Clear data_to_submit after successful submission
-#       shiny::observeEvent(postgres_module$current_data(), {
-#         postgres_module$data_to_submit(NULL)
-#       })
-#     }
-#
-#     shiny::shinyApp(ui, server)
-#   }
-#
-#   sap <- carsTestApp()
-#
-#   expect_s3_class(sap, "shiny.appobj")
 # })

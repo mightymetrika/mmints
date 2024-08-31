@@ -6,10 +6,10 @@ test_that("csvUpload module works", {
       shiny::titlePanel("CSV Upload Module"),
       shiny::sidebarLayout(
         shiny::sidebarPanel(
-          csvUploadUI("data_upload")
+          csvUploadUI("data_upload")$input
         ),
         shiny::mainPanel(
-          csvUploadTableUI("data_upload"),
+          csvUploadUI("data_upload")$output
         )
       )
     )
@@ -19,7 +19,6 @@ test_that("csvUpload module works", {
     }
 
     shiny::shinyApp(ui, server)
-
   }
 
   sap <- csvUpload_app()
