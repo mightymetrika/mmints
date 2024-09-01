@@ -8,10 +8,11 @@
 #           shiny::numericInput("sample_size", "Number of rows to sample:",
 #                               value = 5, min = 1, max = nrow(cars)),
 #           shiny::actionButton("sample_button", "Sample Data"),
-#           postgresUI("postgres")$submit
+#           postgresUI("postgres")$submit,
+#           postgresUI("postgres")$download
 #         ),
 #         shiny::mainPanel(
-#           shiny::h4("Sampled Data:"),
+#           shiny::uiOutput("sampled_data_title"),
 #           shiny::tableOutput("sampled_data"),
 #           shiny::h4("Database Content:"),
 #           postgresUI("postgres")$table
@@ -52,14 +53,13 @@
 #       })
 #
 #       # Display the sampled data
-#       output$sampled_data <- shiny::renderTable({
-#         sampled_data()
+#       output$sampled_data_title <- shiny::renderUI({
+#         shiny::req(sampled_data())
+#         shiny::h4("Sampled Data:")
 #       })
 #
-#       # Clear data_to_submit after successful submission
-#       shiny::observeEvent(postgres_module$current_data(), {
-#         postgres_module$data_to_submit(NULL)
-#         sampled_data(NULL)
+#       output$sampled_data <- shiny::renderTable({
+#         sampled_data()
 #       })
 #     }
 #
