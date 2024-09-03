@@ -1,20 +1,20 @@
 Package: mmints
-Title: Streamline Workflows for Building 'shiny' Applications
+Title: Streamline Workflows for Building Web Applications
 Version: 0.0.0.9000
 Authors@R: c(
     person("Mackson", "Ncube", , "macksonncube.stats@gmail.com", role = c("aut", "cre")),
     person("mightymetrika, LLC", role = c("cph", "fnd"))
   )
-Description: Provides functions and modules to simplify the development of
-    'shiny' applications, particularly those sharing statistical methods or
-    simulation frameworks. Features include the functions postgresUI() and
-    postgresServer() for persistent data storage using a 'PostgreSQL' database to
-    enable applications to run and save simulation results. The package also offers
-    data upload functionality through the csvUploadUI() and csvUploadServer()
-    functions that allows users to upload data, view variables and their types,
-    and edit variable types before fitting statistical models within the 'shiny'
-    application. These tools aim to enhance efficiency and user interaction in
-    'shiny'-based statistical and simulation applications.
+Description: Sharing statistical methods or simulation frameworks through 'shiny'
+    applications often requires workflows for handling data. To help save and
+    display simulation results, the postgresUI() and postgresServer() functions
+    in 'mmints' help with persistent data storage using a 'PostgreSQL' database.
+    The 'mmints' package also offers data upload functionality through the
+    csvUploadUI() and csvUploadServer() functions which allow users to upload
+    data, view variables and their types, and edit variable types before fitting
+    statistical models within the 'shiny' application. These tools aim to
+    enhance efficiency and user interaction in 'shiny'-based statistical and
+    simulation applications.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

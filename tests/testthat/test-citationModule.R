@@ -6,10 +6,10 @@ test_that("citationModule works", {
     ui <- shiny::fluidPage(
       shiny::sidebarLayout(
         shiny::sidebarPanel(
-          citationModuleUI("citations")$button
+          citationUI("citations")$button
         ),
         shiny::mainPanel(
-          citationModuleUI("citations")$output
+          citationUI("citations")$output
         )
       )
     )
@@ -24,7 +24,7 @@ test_that("citationModule works", {
       )
 
       # create citation for display
-      citationModule("citations", citations)
+      citationServer("citations", citations)
     }
 
     shiny::shinyApp(ui, server)

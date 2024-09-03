@@ -13,7 +13,7 @@ functions and modules frequently utilized in other Mighty Metrika
 
 ## Installation
 
-You can install the development version of mmints from
+You can install the development version of ‘mmints’ from
 [GitHub](https://github.com/) with:
 
 ``` r
@@ -24,8 +24,8 @@ pak::pak("mightymetrika/mmints")
 ## Example
 
 One feature of ‘mmints’ is the csvUploadModule, which simplifies the
-process of: 1) Uploading a CSV data file 2) Displaying the variables and
-data types as a ‘DT’ data table 3) Providing functionality for editing
+process of: 1. Uploading a CSV data file 2. Displaying the variables and
+data types as a ‘DT’ data table 3. Providing functionality for editing
 variable types
 
 Here’s how to use the csvUploadModule:

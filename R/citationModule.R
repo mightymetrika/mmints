@@ -11,10 +11,10 @@
 #'   }
 #'
 #' @examples
-#' citationModuleUI("my_citations")
+#' citationUI("my_citations")
 #'
 #' @export
-citationModuleUI <- function(id) {
+citationUI <- function(id) {
 
   # create namespaced IDs
   ns <- shiny::NS(id)
@@ -34,7 +34,7 @@ citationModuleUI <- function(id) {
 #'
 #' This function defines the server logic for the citation module.
 #'
-#' @param id A character string that matches the ID used in \code{citationModuleUI}.
+#' @param id A character string that matches the ID used in \code{citationUI}.
 #' @param citations A named list of citations. Each element can be:
 #'   \itemize{
 #'     \item A character string containing a formatted citation.
@@ -50,11 +50,11 @@ citationModuleUI <- function(id) {
 #'   "R Citation" = function() format_citation(utils::citation())
 #' )
 #' server <- function(input, output, session) {
-#'   citationModule("my_citations", citations)
+#'   citationServer("my_citations", citations)
 #' }
 #'
 #' @export
-citationModule <- function(id, citations) {
+citationServer <- function(id, citations) {
   shiny::moduleServer(id, function(input, output, session) {
 
     # setup reactive values

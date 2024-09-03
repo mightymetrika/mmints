@@ -22,7 +22,7 @@ The 'mmints' (Mighty Metrika Internals) package aims to automate tasks commonly 
 
 ## Installation
 
-You can install the development version of mmints from [GitHub](https://github.com/) with:
+You can install the development version of 'mmints' from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("pak")
@@ -32,9 +32,9 @@ pak::pak("mightymetrika/mmints")
 ## Example
 
 One feature of 'mmints' is the csvUploadModule, which simplifies the process of:
-1) Uploading a CSV data file
-2) Displaying the variables and data types as a 'DT' data table
-3) Providing functionality for editing variable types
+1. Uploading a CSV data file
+2. Displaying the variables and data types as a 'DT' data table
+3. Providing functionality for editing variable types
 
 Here's how to use the csvUploadModule:
 
