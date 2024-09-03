@@ -13,6 +13,13 @@ functions and modules frequently utilized in other Mighty Metrika
 
 ## Installation
 
+You can install the released version of ‘mmints’ from
+[CRAN](https://CRAN.R-project.org):
+
+``` r
+install.packages("mmints")
+```
+
 You can install the development version of ‘mmints’ from
 [GitHub](https://github.com/) with:
 

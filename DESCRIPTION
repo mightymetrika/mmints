@@ -13,7 +13,7 @@ Description: Sharing statistical methods or simulation frameworks through 'shiny
     csvUploadUI() and csvUploadServer() functions which allow users to upload
     data, view variables and their types, and edit variable types before fitting
     statistical models within the 'shiny' application. These tools aim to
-    enhance efficiency and user interaction in 'shiny'-based statistical and
+    enhance efficiency and user interaction in 'shiny' based statistical and
     simulation applications.
 License: MIT + file LICENSE
 Encoding: UTF-8

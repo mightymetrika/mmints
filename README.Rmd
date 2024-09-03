@@ -22,12 +22,20 @@ The 'mmints' (Mighty Metrika Internals) package aims to automate tasks commonly 
 
 ## Installation
 
+You can install the released version of 'mmints' from [CRAN](https://CRAN.R-project.org):
+
+```{r eval=FALSE}
+install.packages("mmints")
+```
+
+
 You can install the development version of 'mmints' from [GitHub](https://github.com/) with:
 
-``` r
+```{r eval=FALSE}
 # install.packages("pak")
 pak::pak("mightymetrika/mmints")
 ```
+
 
 ## Example
 
@@ -38,7 +46,7 @@ One feature of 'mmints' is the csvUploadModule, which simplifies the process of:
 
 Here's how to use the csvUploadModule:
 
-```{r}
+```{r eval=FALSE}
 library(mmints)
 
 csvUpload_app <- function(){
