@@ -1,10 +1,20 @@
 Package: mmints
-Title: What the Package Does (One Line, Title Case)
+Title: Streamline Workflows for Building 'shiny' Applications
 Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Authors@R: c(
+    person("Mackson", "Ncube", , "macksonncube.stats@gmail.com", role = c("aut", "cre")),
+    person("mightymetrika, LLC", role = c("cph", "fnd"))
+  )
+Description: Provides functions and modules to simplify the development of
+    'shiny' applications, particularly those sharing statistical methods or
+    simulation frameworks. Features include the functions postgresUI() and
+    postgresServer() for persistent data storage using a 'PostgreSQL' database to
+    enable applications to run and save simulation results. The package also offers
+    data upload functionality through the csvUploadUI() and csvUploadServer()
+    functions that allows users to upload data, view variables and their types,
+    and edit variable types before fitting statistical models within the 'shiny'
+    application. These tools aim to enhance efficiency and user interaction in
+    'shiny'-based statistical and simulation applications.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
