@@ -1,6 +1,6 @@
 Package: mmints
 Title: Workflows for Building Web Applications
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: c(
     person("Mackson", "Ncube", , "macksonncube.stats@gmail.com", role = c("aut", "cre")),
     person("mightymetrika, LLC", role = c("cph", "fnd"))
