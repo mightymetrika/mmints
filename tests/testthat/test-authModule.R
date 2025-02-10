@@ -22,12 +22,12 @@
 #       # Initialize Postgres module (with new 'executeQuery' method)
 #       postgres <- postgresServer(
 #         "postgres_module",
-#         dbname   = "authdb",
-#         datatable= "users",
-#         host     = "localhost",
-#         port     = 5432,
-#         user     = "postgres",
-#         password = "px4PzQm65e",
+#         dbname   = Sys.getenv("DBNAME"),
+#         datatable= Sys.getenv("DATATABLE"),
+#         host     = Sys.getenv("HOST"),
+#         port     = as.integer(Sys.getenv("PORT")),
+#         user     = Sys.getenv("USER"),
+#         password = Sys.getenv("PASSWORD"),
 #         data     = reactive(NULL)
 #       )
 #
@@ -66,11 +66,11 @@
 #   }
 #
 #   runAuthApp <- function(
-#     dbname   = "authdb",
-#     host     = "localhost",
-#     port     = 5432,
-#     user     = "postgres",
-#     password = "px4PzQm65e"
+#     dbname   = Sys.getenv("DBNAME"),
+#     host     = Sys.getenv("HOST"),
+#     port     = as.integer(Sys.getenv("PORT")),
+#     user     = Sys.getenv("USER"),
+#     password = Sys.getenv("PASSWORD")
 #   ) {
 #     authApp()
 #   }
