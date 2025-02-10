@@ -25,6 +25,7 @@ postgresServer(id, dbname, datatable, host, port, user, password, data)
 }
 \value{
 A list of functions and reactive values:
+\item{executeQuery}{A function to run arbitrary SQL}
 \item{saveData}{A function to save data to the database}
 \item{loadData}{A function to load data from the database}
 \item{current_data}{A reactive value containing the current data in the table}

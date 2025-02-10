@@ -53,6 +53,7 @@ postgresUI <- function(id) {
 #' @param data A reactive expression that provides the data to be submitted
 #'
 #' @return A list of functions and reactive values:
+#'   \item{executeQuery}{A function to run arbitrary SQL}
 #'   \item{saveData}{A function to save data to the database}
 #'   \item{loadData}{A function to load data from the database}
 #'   \item{current_data}{A reactive value containing the current data in the table}
@@ -79,6 +80,15 @@ postgresServer <- function(id, dbname, datatable, host, port, user, password, da
         password = password,
         port = port
       )
+    }
+
+    # function to execute arbitrary SQL (DDL, etc.)
+    executeQuery <- function(sql) {
+      pool <- connect_db()
+      shiny::onStop(function() {
+        pool::poolClose(pool)
+      })
+      pool::dbExecute(pool, sql)
     }
 
     # function to save data
@@ -217,6 +227,7 @@ postgresServer <- function(id, dbname, datatable, host, port, user, password, da
 
     # return functions to be used in the main app
     list(
+      executeQuery = executeQuery,
       saveData = saveData,
       loadData = loadData,
       current_data = current_data,

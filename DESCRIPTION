@@ -28,4 +28,6 @@ Imports:
     DT,
     pool,
     RPostgres,
-    shiny
+    shiny,
+    shinyauthr,
+    sodium
