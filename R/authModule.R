@@ -47,9 +47,7 @@ authUI <- function(id) {
         shiny::textInput(ns("signup_username"), "Username"),
         shiny::passwordInput(ns("signup_password"), "Password"),
         shiny::textInput(ns("signup_email"), "Email"),
-        shiny::textInput(ns("dispay_name"), "Display"),
-        shiny::selectInput(ns("signup_role"), "Role",
-                           choices = c("standard", "admin")),
+        shiny::textInput(ns("dispay_name"), "Display Name"),
         shiny::actionButton(ns("signup_submit"), "Sign Up")
       )
     )
@@ -196,7 +194,7 @@ authServer <- function(id, postgres_module, user_table = "users") {
         password = hashed_pwd,
         email    = input$signup_email,
         display  = input$dispay_name,
-        role     = input$signup_role
+        role     = "standard"
       )
 
       tryCatch({
