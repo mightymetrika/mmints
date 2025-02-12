@@ -9,7 +9,7 @@ authServer(id, postgres_module, user_table = "users")
 \arguments{
 \item{id}{A character string that matches the ID used in \code{authUI()}}
 
-\item{postgres_module}{A postgres module instance to handle database operations}
+\item{postgres_module}{A postgresModule instance to handle database operations}
 
 \item{user_table}{A character string specifying the name of the users table}
 }

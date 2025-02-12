@@ -60,7 +60,7 @@ authUI <- function(id) {
 #' handling user authentication, signup, and guest access.
 #'
 #' @param id A character string that matches the ID used in `authUI()`
-#' @param postgres_module A postgres module instance to handle database operations
+#' @param postgres_module A postgresModule instance to handle database operations
 #' @param user_table A character string specifying the name of the users table
 #'
 #' @return A list containing authentication status and user information
