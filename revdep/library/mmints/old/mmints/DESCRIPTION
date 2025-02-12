@@ -1,0 +1,33 @@
+Package: mmints
+Title: Workflows for Building Web Applications
+Version: 0.1.0
+Authors@R: c(
+    person("Mackson", "Ncube", , "macksonncube.stats@gmail.com", role = c("aut", "cre")),
+    person("mightymetrika, LLC", role = c("cph", "fnd"))
+  )
+Description: Sharing statistical methods or simulation frameworks through 'shiny'
+    applications often requires workflows for handling data. To help save and
+    display simulation results, the postgresUI() and postgresServer() functions
+    in 'mmints' help with persistent data storage using a 'PostgreSQL' database.
+    The 'mmints' package also offers data upload functionality through the
+    csvUploadUI() and csvUploadServer() functions which allow users to upload
+    data, view variables and their types, and edit variable types before fitting
+    statistical models within the 'shiny' application. These tools aim to
+    enhance efficiency and user interaction in 'shiny' based statistical and
+    simulation applications.
+License: MIT + file LICENSE
+Encoding: UTF-8
+RoxygenNote: 7.3.2
+URL: https://github.com/mightymetrika/mmints
+BugReports: https://github.com/mightymetrika/mmints/issues
+Suggests: testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Imports: DT, pool, RPostgres, shiny
+NeedsCompilation: no
+Packaged: 2024-09-03 20:55:11 UTC; Administrator
+Author: Mackson Ncube [aut, cre],
+  mightymetrika, LLC [cph, fnd]
+Maintainer: Mackson Ncube <macksonncube.stats@gmail.com>
+Repository: CRAN
+Date/Publication: 2024-09-05 17:30:06 UTC
+Built: R 4.4.2; ; 2025-02-11 03:02:10 UTC; windows
